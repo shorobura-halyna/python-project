@@ -8,4 +8,4 @@ WORKDIR $APP_HOME
 COPY . ./
 
 # Run the web service on container startup.
-CMD exec uvicorn src.main:app --host 0.0.0.0 --port $PORT
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
