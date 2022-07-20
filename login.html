@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Google Sign-in + Run</title>
+    <script src="https://apis.google.com/js/platform.js"></script>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+    <meta name="google-signin-client_id" content="{OAUTH_CLIENT_ID}">
+  </head>
+
+  <body>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div></br>
+    <div>
+      <div id="returned-text"></div></br>
+      <button id="test">Test</button>
+    </div>
+    <script>
+    var id_token;
+
+    function onSignIn(googleUser) {
+      id_token = googleUser.getAuthResponse().id_token;
+    }
+
+    $(document).ready(function() {
+      $('#test').on('click', function () {
+        var serviceURL = 'https://...';
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', functionURL);
+        xhr.setRequestHeader('Authorization', 'bearer ' + id_token);
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+               $('#returned-text').text(xhr.responseText);
+            }
+        };
+        xhr.send();
+      });
+    });
+    </script>
+  </body>
+</html>
